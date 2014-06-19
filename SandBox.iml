@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="scala" name="Scala">
+      <configuration>
+        <option name="compileOrder" value="JavaThenScala" />
+        <option name="compilerLibraryLevel" value="Global" />
+        <option name="compilerLibraryName" value="Scala 2.11.1 [Compiler]" />
+        <option name="languageLevel" value="Scala 2.11" />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="lift-json_2.10-2.5.1" level="application" />
+    <orderEntry type="library" name="Scala 2.11.1 [Library]" level="application" />
+    <orderEntry type="library" name="Scala 2.11.1 [Akka Actor]" level="application" />
+    <orderEntry type="library" name="Scala 2.11.1 [Scala Actor]" level="application" />
+  </component>
+</module>
+

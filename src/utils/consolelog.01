@@ -1,0 +1,64 @@
+scala> import utils.Utils
+
+val dims = Utils.rszRng(128, 45)(List.range(1, 11))((x, y) => x * y)
+import utils.Utils
+
+scala> dims: List[(utils.Utils.Width, utils.Utils.Height)] = List((128,45), (256,90), (384,135), (512,180), (640,225), (768,270), (896,315), (1024,360), (1152,405), (1280,450))
+
+scala> Utils.mp(dims)((x) => x match { case (a, b) => (a * 10, b * 10) })
+res0: List[(utils.Utils.Width, utils.Utils.Height)] = List((1280,450), (2560,900), (3840,1350), (5120,1800), (6400,2250), (7680,2700), (8960,3150), (10240,3600), (11520,4050), (12800,4500))
+
+scala> Utils.mp(dims)({ case (a, b) => (a * 10, b * 10) })
+res1: List[(utils.Utils.Width, utils.Utils.Height)] = List((1280,450), (2560,900), (3840,1350), (5120,1800), (6400,2250), (7680,2700), (8960,3150), (10240,3600), (11520,4050), (12800,4500))
+
+scala> import utils.Utils._
+
+val dims = rszRng(128, 45)(List.range(1, 11))(_ * _)
+import utils.Utils._
+
+scala> dims: List[(utils.Utils.Width, utils.Utils.Height)] = List((128,45), (256,90), (384,135), (512,180), (640,225), (768,270), (896,315), (1024,360), (1152,405), (1280,450))
+
+scala>
+
+
+
+import utils.Utils._
+
+val dims = rszRng(128, 45)(List.range(1, 11))(_ * _)
+import utils.Utils._
+
+scala> dims: List[(utils.Utils.Width, utils.Utils.Height)] = List((128,45), (256,90), (384,135), (512,180), (640,225), (768,270), (896,315), (1024,360), (1152,405), (1280,450))
+
+scala> mp(dims)({ case (a, b) => (a * 10, b * 10) })
+res2: List[(utils.Utils.Width, utils.Utils.Height)] = List((1280,450), (2560,900), (3840,1350), (5120,1800), (6400,2250), (7680,2700), (8960,3150), (10240,3600), (11520,4050), (12800,4500))
+
+scala> mp(dims)({ case (a, b) => (a * 10, b * 10) }).foldRight((0, 0))({ case ((x1, y1), (x2, y2)) => (x1 + x2, y1 + y2) })
+res3: (Int, Int) = (70400,24750)
+
+scala> mp(dims)({ case (a, b) => (a * 10, b * 10) }).foldRight((0, 0))({ case ((x1, y1), (x2, y2)) => (x1 + x2, y1 + y2) })
+res4: (Int, Int) = (70400,24750)
+
+scala> val a = List(1,2,3,4,5)
+a: List[Int] = List(1, 2, 3, 4, 5)
+
+scala> a.foldRight(Nil:List[Int])((x, y) => (x * 2)::y)
+res6: List[Int] = List(2, 4, 6, 8, 10)
+
+scala> a.foldLeft(Nil:List[Int])((y, x) => (x * 2)::y)
+res7: List[Int] = List(10, 8, 6, 4, 2)
+
+scala> a.foldLeft(Nil:List[Int])((y, x) => (x * 2)::y).reverse
+res8: List[Int] = List(2, 4, 6, 8, 10)
+
+scala> a.foldLeft(Nil:List[Int])((y, x) => (x * 2)::y).foldLeft(0)(_+_)
+res9: Int = 30
+
+scala> a.foldLeft(Nil:List[Int])((y, x) => (x * 2)::y).foldLeft(0)(_+_)
+res10: Int = 30
+
+scala> a.foldLeft(Nil:List[Int])((y, x) => (x * 2)::y).foldLeft(0)(_+_).toString()
+res11: String = 30
+
+scala> a.foldLeft(Nil:List[Int])((y, x) => (x * 2)::y).foldLeft(0)(_+_)
+res12: Int = 30
+
