@@ -44,10 +44,10 @@ object List {
   def tailDrop[A](as: List[A]): List[A] = drop(as, 1)
 
   // Ex. 5
-  def dropWhile[A](l: List[A], f: A => Boolean): List[A] = l match {
-    case Nil => l
-    case Cons(x, xs) => if (f(x)) dropWhile(xs, f) else Cons(x, xs)
-  }
+  //def dropWhile[A](l: List[A], f: A => Boolean): List[A] = l match {
+  //  case Nil => l
+  //  case Cons(x, xs) => if (f(x)) dropWhile(xs, f) else Cons(x, xs)
+  //}
   // -- revised
   def dropWhile[A](l: List[A])(f: A => Boolean): List[A] = l match {
     case Nil => l
