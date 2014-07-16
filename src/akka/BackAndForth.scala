@@ -21,7 +21,7 @@ class Master extends Actor {
       serv ! "reply"
     case "hello back" =>
       println("rcvd: hello back")
-      ogSender map { a => a ! "got a reply" }
+      ogSender map { case a => a ! "got a reply" }
   }
 }
 
