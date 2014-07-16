@@ -9,7 +9,8 @@ import scala.concurrent.duration._
 
 class Master extends Actor {
   val serv = context.actorOf(Props(new Servant(self)))
-  var ogSender: Option[ActorRef] = None
+  final var ogSender: Option[ActorRef] = None
+  //val ogSender = Some(sender)
   var assigned = false
   def receive = {
     case "hey" =>
