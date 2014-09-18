@@ -5,7 +5,7 @@
       <configuration>
         <option name="compileOrder" value="JavaThenScala" />
         <option name="compilerLibraryLevel" value="Global" />
-        <option name="compilerLibraryName" value="Scala 2.11.1 [Compiler]" />
+        <option name="compilerLibraryName" value="Scala 2.11.2" />
         <option name="languageLevel" value="Scala 2.11" />
       </configuration>
     </facet>
@@ -18,9 +18,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lift-json_2.10-2.5.1" level="application" />
-    <orderEntry type="library" name="Scala 2.11.1 [Library]" level="application" />
-    <orderEntry type="library" name="Scala 2.11.1 [Akka Actor]" level="application" />
-    <orderEntry type="library" name="Scala 2.11.1 [Scala Actor]" level="application" />
+    <orderEntry type="library" name="Scala 2.11.2" level="application" />
   </component>
 </module>
 

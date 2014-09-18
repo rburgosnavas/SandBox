@@ -11,7 +11,7 @@ import akka.actor.{Props, ActorSystem}
 object Runner extends App {
   val system = ActorSystem("converse")
   val room = system.actorOf(Props[Room])
-  val user = system.actorOf(Props(new User(room)))
+  val user = system.actorOf(Props(new User(room)), "")
 
   user ! Login("hi")
   val in = new Scanner(System.in)
