@@ -43,7 +43,7 @@ object ListRunner extends App {
   println(s"\nfoldRSum: ${foldRSum}")
 
   // Ex. 8
-  println(s"\n${foldRight(List(1,2,3))(Nil: List[Int])(Cons(_, _))}")
+  println(s"\nfoldRight(List(1,2,3))(Nil: List[Int])(Cons(_, _)): ${foldRight(List(1,2,3))(Nil: List[Int])(Cons(_, _))}")
 
   println(s"\nlength(List(1,2,3,4,5,6,7,8,9): ${length(List(1,2,3,4,5,6,7,8,9))}")
 
@@ -54,20 +54,35 @@ object ListRunner extends App {
   println(s"\nreverse: ${rev}")
 
   // Ex. 13
-  println(s"\n${foldRight2(List(1,2,3))(0)(add)}")
+  println(s"\nfoldRight2(List(1,2,3))(0)(add): ${foldRight2(List(1,2,3))(0)(add)}")
 
   // Ex. 14
   val appendedFold = appendFold(List(1,2,3), List(4,5,6))
   println(s"\nappendedFold: ${appendedFold}")
 
   // Ex. 15
-  val concatd = concat(List(List(1,2), List(4,5), List(7,8)))
+  val concatd = concat(List(List(1,2), List(4,5), List(List(6, 7),8)))
   println(s"\nconcatd: ${concatd}")
 
   // Ex. 16
   val incd = incIntList(List(1,2,3,4,5))
   println(s"\nincd: ${incd}")
 
-  val mappedTR = mapTR(List(1,2,3,4,5))(_ + 1)
+  val mappedTR = mapTR(List(1,2,3,4,5))(i => List(i, i))
   println(s"\nmappedTR: ${mappedTR}")
+
+  val filtered = filter(List(1,2,3,4,5,6))(_ % 3 == 0)
+  println(s"\nfiltered: ${filtered}")
+
+  val flatMapped = flatMap(List(1,2,3,4,5))(i => List(i, i))
+  println(s"\nflatMapped: ${flatMapped}")
+
+  val flatMapFiltered = flatMapFilter(List(1,2,3,4,5,6))(_ % 3 == 0)
+  println(s"\nflatMapFiltered: ${flatMapFiltered}")
+
+  val combed = comb(List(1,2,3), List(4,5,6,7))(_ + _)
+  println(s"\ncombed: ${combed}")
+
+  val zippedWith = zipWith(List(1,2,3), List(4,5,6,7))(_ + _)
+  println(s"\nzippedWith: ${zippedWith}")
 }
