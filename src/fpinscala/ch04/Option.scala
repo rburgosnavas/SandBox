@@ -8,11 +8,13 @@ sealed trait Option[+A] {
     case Some(v) => Some(f(v))
   }
 
+  // flatMap is the same as >>= in Haskell
   def flatMap[B](f: A => Option[B]): Option[B] = this match {
     case None => None
     case Some(v) => f(v)
   }
 
+  // flatMap2 is the same as >>= in Haskell
   def flatMap2[B](f: A => Option[B]): Option[B] = {
     // map(f) returns an Option[Option[B]]
     // getOrElse returns an Option[B]
@@ -74,7 +76,8 @@ object Option {
     }
   }
 
-  def sequence[A](a: List[Option[A]]): Option[List[A]] = {
-    ???
+  def sequence[A](a: List[Option[A]]): Option[List[A]] = a match {
+    case Nil => Some(Nil)
+    case h :: t => h flatMap (v => sequence(t) map (v :: _))
   }
 }
