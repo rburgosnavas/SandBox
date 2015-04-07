@@ -92,17 +92,69 @@ sealed trait Stream[+A] {
   }
 
   def map2[B >: A](f: A => B): Stream[B] = {
-    unfold(this){
+    unfold(this) {
       case Cons(h, t) => Some((f(h()), t()))
       case _ => None
     }
   }
 
   def take2(n: Int): Stream[A] = {
-    unfold(this){
-      case Cons(h, t) => if (n > 0) Some((h(), t())) else None
+    unfold((this, n)) {
+      case (Cons(h, t), n) =>
+        if (n > 0) Some(h(), (t(), n - 1))
+        else None
       case _ => None
     }
+  }
+
+  def takeWhile3(p: A => Boolean): Stream[A] = {
+    unfold(this) {
+      case Cons(h, s) if (p(h())) => Some((h(), s()))
+      case _ => None
+    }
+  }
+
+  def zipWith[B, C](st2: Stream[B])(f: (A, B) => C): Stream[C] = {
+    unfold((this, st2)) {
+      case (Cons(h1, s1), Cons(h2, s2)) =>
+        Some(f(h1(), h2()), (s1(), s2()))
+      case _ => None
+    }
+  }
+
+  def zipAll[B](s2: Stream[B]): Stream[(Option[A], Option[B])] = {
+    unfold((this, s2)) {
+      case (Cons(h1, s1), Cons(h2, s2)) => Some((Some(h1()), Some(h2())), (s1(), s2()))
+      case (Cons(h1, s1), _) => Some((Some(h1()), None), (s1(), empty[B]))
+      case (_, Cons(h2, s2)) => Some((None, Some(h2())), (empty[A], s2()))
+      case _ => None
+    }
+  }
+
+  def tails: Stream[Stream[A]] = {
+    unfold(this) {
+      case s @ Cons(h, t) => Some(s, t())
+      case _ => None
+    } append(empty)
+  }
+
+  def startWith[A](s: Stream[A]): Boolean = {
+    // * zipAll the streams first to Stream[(Option, Option)]
+    // * takeWhile from Stream[(Option, Option)] until the second Option in the
+    //   tuple is None (isEmpty)
+    //   This guarantees that we do not match a Some with a None, since that
+    //   will yield `false`
+    // * call forAll to check if all the first Option equals the second Option
+    //   in the tuple
+    zipAll(s) takeWhile {
+      case (o1, o2) => !o2.isEmpty
+    } forAll {
+      case (o1, o2) => o1 == o2
+    }
+  }
+
+  def scanRight[B](z: B)(f: (A, B) => B): Stream[B] = {
+    ???
   }
 }
 case object Empty extends Stream[Nothing]
@@ -211,5 +263,18 @@ object StreamRunner extends App {
 
   println(unfold(0)(ff).toList)
 
-  println(st1.take2(3).toList)
+  println(st1.take2(6).toList)
+  println(st1.takeWhile3(_ < 5).toList)
+
+  println(st1.take(3).zipWith(st1.take(3))(_ * _).toList)
+  println(st1.take(7).zipAll(st1.take(3)).toList)
+
+  println(st1.tails.toList)
+
+  println(st1.zipAll(from2(1).take2(2)).takeWhile {
+    case (o1, o2) => !o2.isEmpty
+  }.toList)
+  println(st1.startWith(from2(1).take(2)))
+
+  println(Stream(1,2,3).scanRight(0)(_ + _).toList)
 }
